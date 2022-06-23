@@ -1,5 +1,91 @@
-# tutorial-backend-plugin
-mef-dev-tutorial-backend-plugin
 
-Example source of basic backend plugin for publishing on the  <a href="https://mef.dev/" target="_blank">MEF.DEV Cloud Platform</a>. To develop this plugin, you only need knowledge of coding in C# language.
-Follow the instructions and learn <a href="https://mef.dev/en/backend_uIs_plugin/first_backend_plugin.php" target="_blank">how to create your first plugin</a>, which can be further extended to use these Backend plugins and implement your business logic. More details at <a href="https://youtube.com/playlist?list=PLWtWlDCLjp8D8htSnSd0lreO5-w3pfli4" target="_blank">HowTo youtube video</a> 
+
+# Перший Backend плагін
+
+> Для розробки знадобиться  IDE з підтримкою написання коду на мові програмування C#. Для написання данної станні вкикористовувалась [VisualStudio](https://visualstudio.microsoft.com/vs/).
+
+> Також необхідна наявність [dotnet CLI](https://docs.microsoft.com/ru-ru/dotnet/core/tools/dotnet)
+
+## Клонування репозиторію
+
+Розробку першого плагіна розпочнемо з клюнування GIT репозиторію **[  
+tutorial-backend-plugin](https://github.com/mef-dev/tutorial-backend-plugin)**.
+```
+git clone https://github.com/mef-dev/tutorial-backend-plugin.git
+```
+
+## Огляд параметрів
+
+Після завантаження, та відкриття проекту можемо оглянути вміст.
+
+![asd](https://i.postimg.cc/hj2chY1W/1.png)
+
+Унікальним ідентифікатором на платформі є назва проекту, а також назва сутності (entity). При створенні власного проекту перейменовуємо проект і модифікуємо назву сутності.
+
+## Збірка плагіна
+
+Для збірки плагіна можна скористатися командою
+```
+dotnet publish -o bin\Deploy --force
+```
+Та заархівувати вміст теки `bin\Deploy`. 
+
+Або скористатися готовим скриптом для Windows `build_for_deploy.cmd`
+
+##  Реєстрація плагіну
+
+Для початку перейдемо на сторінку створення плагіну. 
+
+![Cторінкa створення](https://i.postimg.cc/bY2Lg99R/1.png)
+
+Вона знаходиться в пункті меню `Плагіни` 
+
+Після чого ми попадаємо на сторінку створення плагінів. 
+
+Аліас- назва предметної області плагіну. Ім'я- назва плагіну. Вооодимо ці данні, і переходимо до типу. У платформі існує 4 основних типи плагінів. Про відмінності між ними написано в блоці допомоги. Зараз нас цікавить тип `Service`- плагін, що містить лише API складову, без користувацької конфінурації. Вибираємо його.
+
+ Після вибору у нас активувався `Backend` блок. Він містить лише одне поле `PluginMefName`. Це є назва нашого проекту. Вводимо назву з репозиторію, після чого нажимаємо кнопку **Зберегти**.
+ 
+##  Завантаження плагіну
+
+Для завантаження готового ZIP-архіву плагіну на платформу, необхідно, на сторінці конфігерації в блоці *Backend* натиснути кнопук **Завантажити нову версію**.
+ ![Cторінкa створення](https://i.postimg.cc/PrgDfqj0/2.png)
+
+Після завантаження, в дропдауні необхідно вибрати необхідну версію та натиснути кнопку **Зберегти**
+ 
+##  Перевірка працездатності
+
+Провіряти роботу API плагінів можна любою програмою-сніфером. В данному випадку використовуватиметься *Postman*.
+
+Для відправлення запитів потрібно, щоб сніфер відправляв запити з токеном користувача в платформі. Отримати його можна через `devtool` в розділі `Storage`
+
+### Базова перевірка працездатності
+В межах платфори іcнує ендпоінт для перевірки працездатності плагіна:
+```
+https://preview.mef.dev/api/v1/<alias>/plugins/<PluginMefName>/version.json?detaillevel=detailed
+```
+
+![detaillevel=detailed](https://i.postimg.cc/gjBFvJdW/3.png)
+
+У випадку схожого результату, важ плагін успішно заантажений на платформу, та готовий до роботи.
+
+### Запити до плагіна 
+Надсилання запитів до плагіна продемонструємо на прикладі GET запитів.
+
+Для надсилання запитів використовується шаблон:
+```
+https://preview.mef.dev/api/v1/<alias>/<PluginMefName>
+```
+При цьому в тіло запиту можна добавляти будь-які параметри\хедери\поля, проте варто відобразити їх у вхіній моделі плагіна.
+ 
+![detaillevel=detailed](https://i.postimg.cc/DwQhN7Pq/4.png)
+
+### Запити до екшенів
+
+Екшини  можуть сприймати лише POST запити, Які формуються за формулою:
+```
+https://preview.mef.dev/api/v1/<alias>/<PluginMefName>/actions/<ActionName>.json
+```
+![detaillevel=detailed](https://i.postimg.cc/2yC9VfZf/5.png)
+
+> Реалізацію цих запитів також можна побачити в Ангуляр-аплікаці [tutorial-ui-plugin](https://github.com/mef-dev/tutorial-ui-plugin).
