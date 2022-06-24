@@ -61,3 +61,8 @@ Thumbs.db
 /CusomerAccountBilder/obj
 *.pubxml
 *.user
+/TestPackage/obj
+/TestPackage/.vs/TestPluginPackage/v17
+/TestPackage/bin/Debug/netcoreapp3.1
+/TestProject/TestProject/bin/Debug/netcoreapp3.1
+/TestProject/TestProject/obj

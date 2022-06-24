@@ -1,5 +1,6 @@
 
 
+
 # Перший Backend плагін
 
 > Для розробки знадобиться  IDE з підтримкою написання коду на мові програмування C#. Для написання данної станні вкикористовувалась [VisualStudio](https://visualstudio.microsoft.com/vs/).
@@ -74,7 +75,7 @@ https://preview.mef.dev/api/v1/<alias>/plugins/<PluginMefName>/version.json?deta
 
 Для надсилання запитів використовується шаблон:
 ```
-https://preview.mef.dev/api/v1/<alias>/<PluginMefName>
+https://preview.mef.dev/api/v1/<alias>/<PluginName>
 ```
 При цьому в тіло запиту можна добавляти будь-які параметри\хедери\поля, проте варто відобразити їх у вхіній моделі плагіна.
  
@@ -84,7 +85,7 @@ https://preview.mef.dev/api/v1/<alias>/<PluginMefName>
 
 Екшини  можуть сприймати лише POST запити, Які формуються за формулою:
 ```
-https://preview.mef.dev/api/v1/<alias>/<PluginMefName>/actions/<ActionName>.json
+https://preview.mef.dev/api/v1/<alias>/<PluginName>/actions/<ActionName>.json
 ```
 ![detaillevel=detailed](https://i.postimg.cc/2yC9VfZf/5.png)
 
