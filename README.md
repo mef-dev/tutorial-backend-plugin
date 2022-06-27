@@ -55,7 +55,7 @@ When all fields are filed correctly, you will be directed to the package configu
 
 The updated or initial package version is uploaded from the **Backend** block. When you click on the Upload button, you have got to select the ZIP archive with **collected package content from the folder** witn name: `bin\Deploy`.
 
-|![Creating page](/Images/dev_guides/create_backend_plugin/2.png)|
+|![Creating page](https://mef.dev/Images/dev_guides/create_backend_plugin/2.png)|
 | :--: |
 
 It is not allowed to upload has already uploaded version - so it is important to manage the package versioning and do changes of the assembly version in the project properties.
@@ -73,7 +73,7 @@ From a technical perspective, the platform provides you the endpoint for the pac
 https://preview.mef.dev/api/v1/<alias>/plugins/<PluginMefName>/version.json?detaillevel=detailed
 ```
 
-|![detaillevel=detailed](/Images/dev_guides/create_backend_plugin/3.png)|
+|![detaillevel=detailed](https://mef.dev/Images/dev_guides/create_backend_plugin/3.png)|
 | :--: |
 
 In case of a similar result, your package was uploaded on the platform successfully.
@@ -87,7 +87,7 @@ https://preview.mef.dev/api/v1/<alias>/<EntityName>
 ```
 Design-wise, you can develop and add any parameters, headers, and fields within the request, but you should handle them with the input and output models of the package. To operate with the platform with specific tasks, you should use ServiceProvider from the context
  
-|![detaillevel=detailed](/Images/dev_guides/create_backend_plugin/4.png)|
+|![detaillevel=detailed](https://mef.dev/Images/dev_guides/create_backend_plugin/4.png)|
 | :--: |
 
 ### Specific Action requests
@@ -96,7 +96,7 @@ To implement specific logic which should outstanding of standard HTTP methods, y
 ```
 https://preview.mef.dev/api/v1/<alias>/<EntityName>/<ActionName>.json
 ```
-|![detaillevel=detailed](/Images/dev_guides/create_backend_plugin/5.png)|
+|![detaillevel=detailed](https://mef.dev/Images/dev_guides/create_backend_plugin/5.png)|
 | :--: |
 
 > The implementation of these requests also is available by the Angular application package example [tutorial-ui-plugin](https://github.com/mef-dev/tutorial-ui-plugin).
