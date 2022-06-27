@@ -100,3 +100,7 @@ https://preview.mef.dev/api/v1/<alias>/<EntityName>/<ActionName>.json
 | :--: |
 
 > The implementation of these requests also is available by the Angular application package example [tutorial-ui-plugin](https://github.com/mef-dev/tutorial-ui-plugin).
+
+# Useful links
+
+> *Guide to register package into the platform: https://mef.dev/en/dev_guides/upload_ui_plugin.md*
