@@ -17,7 +17,7 @@ git clone https://github.com/mef-dev/tutorial-backend-plugin.git
 
 After cloning and opening the solution, the content will be like that:
 
-|![Project content](/Images/dev_guides/create_backend_plugin/1.png)|
+|![Project content](https://mef.dev/Images/dev_guides/create_backend_plugin/1.png)|
 | :--: |
 
 The unique identifier whithin the platform is the assembly name as well as the entity name within the particular alias. When creating your own project, rename the project to change assemply name and modify the name of the entity as you want.
@@ -34,7 +34,7 @@ After successful build operation, you have got to archive the content of `bin\De
 
 Let's start registration process with the package creation page, it should be done the only once
 
-|![Creating page](/Images/dev_guides/create_ui_plugin/2.png)|
+|![Creating page](https://mef.dev/Images/dev_guides/create_ui_plugin/2.png)|
 | :--: |
 
 > *Note. This functionality is available to users with Developer Admin and Developer roles*
