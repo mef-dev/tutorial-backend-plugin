@@ -1,92 +1,102 @@
 
 
+# Creation of Backend package from template
 
-# Перший Backend плагін
+> You have got to install an IDE with support for writing code in the C# programming language. [VisualStudio](https://visualstudio.microsoft.com/vs/) was used to write this guide.
 
-> Для розробки знадобиться  IDE з підтримкою написання коду на мові програмування C#. Для написання данної станні вкикористовувалась [VisualStudio](https://visualstudio.microsoft.com/vs/).
+> Also is required the [Dotnet CLI](https://docs.microsoft.com/ru-ru/dotnet/core/tools/dotnet)
 
-> Також необхідна наявність [dotnet CLI](https://docs.microsoft.com/ru-ru/dotnet/core/tools/dotnet)
+## Repository cloning
 
-## Клонування репозиторію
-
-Розробку першого плагіна розпочнемо з клюнування GIT репозиторію **[  
-tutorial-backend-plugin](https://github.com/mef-dev/tutorial-backend-plugin)**.
+Let's start the development with the GIT repository cloning **[tutorial-backend-plugin](https://github.com/mef-dev/tutorial-backend-plugin)**.
 ```
 git clone https://github.com/mef-dev/tutorial-backend-plugin.git
 ```
 
-## Огляд параметрів
+## Content overview
 
-Після завантаження, та відкриття проекту можемо оглянути вміст.
+After cloning and opening the solution, the content will be like that:
 
-![asd](https://i.postimg.cc/hj2chY1W/1.png)
+|![Project content](/Images/dev_guides/create_backend_plugin/1.png)|
+| :--: |
 
-Унікальним ідентифікатором на платформі є назва проекту, а також назва сутності (entity). При створенні власного проекту перейменовуємо проект і модифікуємо назву сутності.
+The unique identifier whithin the platform is the assembly name as well as the entity name within the particular alias. When creating your own project, rename the project to change assemply name and modify the name of the entity as you want.
 
-## Збірка плагіна
+## Build
 
-Для збірки плагіна можна скористатися командою
+To build the package you can use the command below:
 ```
 dotnet publish -o bin\Deploy --force
 ```
-Та заархівувати вміст теки `bin\Deploy`. 
+After successful build operation, you have got to archive the content of `bin\Deploy` folder into ZIP file. 
 
-Або скористатися готовим скриптом для Windows `build_for_deploy.cmd`
+##  Registration package
 
-##  Реєстрація плагіну
+Let's start registration process with the package creation page, it should be done the only once
 
-Для початку перейдемо на сторінку створення плагіну. 
+|![Creating page](/Images/dev_guides/create_ui_plugin/2.png)|
+| :--: |
 
-![Cторінкa створення](https://i.postimg.cc/bY2Lg99R/1.png)
+> *Note. This functionality is available to users with Developer Admin and Developer roles*
 
-Вона знаходиться в пункті меню `Плагіни` 
+The package creation page you can find under the `Plugins` menu. After clicking the Add button, we get to the plugin creation page. In this case, we need to specify the details of the new plugin below:
 
-Після чого ми попадаємо на сторінку створення плагінів. 
+- **ALIAS** - the name of the subject area of the package, which is used to combine packages by functional purpose (logical group). Should be noted that package names cannot intersect within one ALIAS name. 
+- **NAME** - the package name. 
 
-Аліас- назва предметної області плагіну. Ім'я- назва плагіну. Вооодимо ці данні, і переходимо до типу. У платформі існує 4 основних типи плагінів. Про відмінності між ними написано в блоці допомоги. Зараз нас цікавить тип `Service`- плагін, що містить лише API складову, без користувацької конфінурації. Вибираємо його.
+After entering this data, we will pass to a choice of package type. At this time the platform supports 4 main package types - the purpose of each type and the differences between them are written in the help (green block). Now we are interested in the `Service` type - a package oriented to handle the requests from UI components without specific tenant configuration, so we choose it.
 
- Після вибору у нас активувався `Backend` блок. Він містить лише одне поле `PluginMefName`. Це є назва нашого проекту. Вводимо назву з репозиторію, після чого нажимаємо кнопку **Зберегти**.
+After the selection, our `Backend` block was activated to user input. It contains only one field `PluginMefName`. This is the project assembly name. Enter the name and click **Save**.
+When all fields are filed correctly, you will be directed to the package configuration page.
+
+> *Note. Futher, you can navigate to it via the `Configure` sub-menu in the selected row menu, located in the last column of table on the page* ***Plugins***
  
-##  Завантаження плагіну
+##  Uploading version of package
 
-Для завантаження готового ZIP-архіву плагіну на платформу, необхідно, на сторінці конфігерації в блоці *Backend* натиснути кнопук **Завантажити нову версію**.
- ![Cторінкa створення](https://i.postimg.cc/PrgDfqj0/2.png)
+The updated or initial package version is uploaded from the **Backend** block. When you click on the Upload button, you have got to select the ZIP archive with **collected package content from the folder** witn name: `bin\Deploy`.
 
-Після завантаження, в дропдауні необхідно вибрати необхідну версію та натиснути кнопку **Зберегти**
+|![Creating page](/Images/dev_guides/create_backend_plugin/2.png)|
+| :--: |
+
+It is not allowed to upload has already uploaded version - so it is important to manage the package versioning and do changes of the assembly version in the project properties.
+After uploading, you have got to switch to the uploaded version and click **Save**
  
-##  Перевірка працездатності
+##  Package Dry run
 
-Провіряти роботу API плагінів можна любою програмою-сніфером. В данному випадку використовуватиметься *Postman*.
+You can make dry run of the package with any API tools. In this guide, the *Postman* will be used.
 
-Для відправлення запитів потрібно, щоб сніфер відправляв запити з токеном користувача в платформі. Отримати його можна через `devtool` в розділі `Storage`
+You should be authorized to send HTTP requests - usually, the authorization scheme with the user token is used, but we will use `Basic Auth` for dry runs. You can create the required login-password pair under the [SETTINGS\CREDENTIALS](https://preview.mef.dev/console/settings/credentials) section of your profile on the platform, accessed by clicking on the user icon in the upper right corner. After clicking on the `ADD` button you will be able to set up the user login and password with the Basic Auth authorization type.
 
-### Базова перевірка працездатності
-В межах платфори іcнує ендпоінт для перевірки працездатності плагіна:
+### Basic health check
+From a technical perspective, the platform provides you the endpoint for the package's version check within the platform:
 ```
 https://preview.mef.dev/api/v1/<alias>/plugins/<PluginMefName>/version.json?detaillevel=detailed
 ```
 
-![detaillevel=detailed](https://i.postimg.cc/gjBFvJdW/3.png)
+|![detaillevel=detailed](/Images/dev_guides/create_backend_plugin/3.png)|
+| :--: |
 
-У випадку схожого результату, важ плагін успішно заантажений на платформу, та готовий до роботи.
+In case of a similar result, your package was uploaded on the platform successfully.
 
-### Запити до плагіна 
-Надсилання запитів до плагіна продемонструємо на прикладі GET запитів.
+### Standard Package requests
+Sending the standard requests to the package will be demonstrated by the GET requests examples.
 
-Для надсилання запитів використовується шаблон:
+To send requests you have got to use the URL path below:
 ```
-https://preview.mef.dev/api/v1/<alias>/<PluginName>
+https://preview.mef.dev/api/v1/<alias>/<EntityName>
 ```
-При цьому в тіло запиту можна добавляти будь-які параметри\хедери\поля, проте варто відобразити їх у вхіній моделі плагіна.
+Design-wise, you can develop and add any parameters, headers, and fields within the request, but you should handle them with the input and output models of the package. To operate with the platform with specific tasks, you should use ServiceProvider from the context
  
-![detaillevel=detailed](https://i.postimg.cc/DwQhN7Pq/4.png)
+|![detaillevel=detailed](/Images/dev_guides/create_backend_plugin/4.png)|
+| :--: |
 
-### Запити до екшенів
+### Specific Action requests
 
-Екшини  можуть сприймати лише POST запити, Які формуються за формулою:
+To implement specific logic which should outstanding of standard HTTP methods, you have got to use the Action implementation over the POST method. An example you can find with the URL path below:
 ```
-https://preview.mef.dev/api/v1/<alias>/<PluginName>/actions/<ActionName>.json
+https://preview.mef.dev/api/v1/<alias>/<EntityName>/<ActionName>.json
 ```
-![detaillevel=detailed](https://i.postimg.cc/2yC9VfZf/5.png)
+|![detaillevel=detailed](/Images/dev_guides/create_backend_plugin/5.png)|
+| :--: |
 
-> Реалізацію цих запитів також можна побачити в Ангуляр-аплікаці [tutorial-ui-plugin](https://github.com/mef-dev/tutorial-ui-plugin).
+> The implementation of these requests also is available by the Angular application package example [tutorial-ui-plugin](https://github.com/mef-dev/tutorial-ui-plugin).
