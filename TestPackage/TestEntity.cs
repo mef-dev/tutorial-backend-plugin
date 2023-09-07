@@ -9,8 +9,8 @@ using UCP.Common.Plugin.Services;
 
 namespace TestPluginPackage
 {
-    [Export("entityName", typeof(IBackendPlugin))] // The unique Name entire the Alias (logical group of Entities) for the interface implementation below
-    [ExportMetadata("Actions", new[] { "testAction" })] // The Action is a Name-customized implementation of some CRUD operations
+    [Export("testplugin", typeof(IBackendPlugin))] // The unique Name entire the Alias (logical group of Entities) for the interface implementation below - ONLY LOWER CASE!
+    [ExportMetadata("Actions", new[] { "testaction" })] // The Action is a Name-customized implementation of some CRUD operations - ONLY LOWER CASE!
     public class TestEntity : IBackendPlugin // The entity is a particular implementation of the interface IBackendPlugin
     {
         private IApiContext mefDevPlatformContext;
