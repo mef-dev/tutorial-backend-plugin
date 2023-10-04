@@ -16,7 +16,7 @@ To let the MEF.DEV platform know which class to use for request deserialization,
 
 It's important to note that during plugin registration in the platform, the project's name is used, specifically the **Assembly name** (for example, `TestPlugin` below).
 
-You can create a plugin using this instruction, or you can use an existing example by following this link: [backend-template](https://github.com/mef-dev/tutorial-backend-plugin).
+You can create a plugin using this instruction, or you can use an existing example by following this link: [TestPlugin.sln](https://github.com/mef-dev/tutorial-backend-plugin/blob/master/TestPlugin.sln).
 
 ____
 
