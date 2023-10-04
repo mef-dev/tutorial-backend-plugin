@@ -23,12 +23,12 @@ ____
 ## Project Creation
 To begin, you need to create a new project. Select **Create a new project**
 
-|![Етап 1](https://mef.dev/Images/dev_guides/create_backend_plugin/1.png)|
+|![Етап 1](https://mef.dev/Images/dev_guides/create_backend_plugin/1.png#v2)|
 | :--: |
 
 Also, choose **Class library**  and the **С#** programming language:
 
-|![Етап 2](https://mef.dev/Images/dev_guides/create_backend_plugin/2.png)|
+|![Етап 2](https://mef.dev/Images/dev_guides/create_backend_plugin/2.png#v2)|
 | :--: |
 
 Configure the new project:
@@ -37,12 +37,12 @@ Configure the new project:
 - Set the location where it will be saved in **Location**
 - Check the box to save the **solution** in the same folder as the project:
 
-|![Етап 3](https://mef.dev/Images/dev_guides/create_backend_plugin/3.png)|
+|![Етап 3](https://mef.dev/Images/dev_guides/create_backend_plugin/3.png#v2)|
 | :--: |
 
 Under additional information, it is recommended to select the **.NET(Long Term Support)** version:
 
-|![Етап 4](https://mef.dev/Images/dev_guides/create_backend_plugin/4.png)|
+|![Етап 4](https://mef.dev/Images/dev_guides/create_backend_plugin/4.png#v2)|
 | :--: |
 
 ----
@@ -58,7 +58,7 @@ public class RestResource
 #### Adding NuGet Dependencies and the Export Attribute.
 Search for the `MEF.DEV.Common.Plugin` extension and install it:
 
-|![Етап 5](https://mef.dev/Images/dev_guides/create_backend_plugin/5.png)|
+|![Етап 5](https://mef.dev/Images/dev_guides/create_backend_plugin/5.png#v2)|
 | :--: |
 
 ```ts
