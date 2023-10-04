@@ -22,6 +22,8 @@ After cloning and opening the solution, the content will be like that:
 
 The unique identifier whithin the platform is the assembly name as well as the entity name within the particular alias. When creating your own project, rename the project to change assemply name and modify the name of the entity as you want.
 
+> To obtaining dynamic configuration (depending on the tenant) you need to implement the IPluginConfig interface, for example [plugin-configuration](https://github.com/mef-dev/tutorial-backend-plugin/tree/master#plugin-configuration) 
+
 ## Build
 
 To build the package you can use the command below:
@@ -60,7 +62,14 @@ The updated or initial package version is uploaded from the **Backend** block. W
 
 It is not allowed to upload has already uploaded version - so it is important to manage the package versioning and do changes of the assembly version in the project properties.
 After uploading, you have got to switch to the uploaded version and click **Save**
- 
+
+> Alternatively, you can upload the plugin using the publish API method provided by the platform::
+
+```curl --location 'http://localhost:5000/api/v1/plugins/test/TestPlugin/publish' \
+--header 'Authorization: Basic userpass' \
+--form 'file=@"/path/to/file"
+```
+
 ##  Package Dry run
 
 You can make dry run of the package with any API tools. In this guide, the *Postman* will be used.
