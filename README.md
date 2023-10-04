@@ -1,4 +1,4 @@
-# Instruction: "How to create plugin project"
+# Instruction: "How to create Backend plugin project"
 ----
 > To develop a plugin, you will need an IDE with support for C# programming language. This instruction was created using [VisualStudio](https://visualstudio.microsoft.com/vs/).
 
