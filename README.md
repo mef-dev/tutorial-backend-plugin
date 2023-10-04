@@ -23,12 +23,12 @@ ____
 ## Project Creation
 To begin, you need to create a new project. Select **Create a new project**
 
-|![Етап 1](../../images/dev_guides/create_backend_plugin/1.png)|
+|![Етап 1](https://mef.dev/Images/dev_guides/create_backend_plugin/1.png)|
 | :--: |
 
 Also, choose **Class library**  and the **С#** programming language:
 
-|![Етап 2](../../images/dev_guides/create_backend_plugin/2.png)|
+|![Етап 2](https://mef.dev/Images/dev_guides/create_backend_plugin/2.png)|
 | :--: |
 
 Configure the new project:
@@ -37,12 +37,12 @@ Configure the new project:
 - Set the location where it will be saved in **Location**
 - Check the box to save the **solution** in the same folder as the project:
 
-|![Етап 3](../../images/dev_guides/create_backend_plugin/3.png)|
+|![Етап 3](https://mef.dev/Images/dev_guides/create_backend_plugin/3.png)|
 | :--: |
 
 Under additional information, it is recommended to select the **.NET(Long Term Support)** version:
 
-|![Етап 4](../../images/dev_guides/create_backend_plugin/4.png)|
+|![Етап 4](https://mef.dev/Images/dev_guides/create_backend_plugin/4.png)|
 | :--: |
 
 ----
@@ -58,7 +58,7 @@ public class RestResource
 #### Adding NuGet Dependencies and the Export Attribute.
 Search for the `MEF.DEV.Common.Plugin` extension and install it:
 
-|![Етап 5](../../images/dev_guides/create_backend_plugin/5.png)|
+|![Етап 5](https://mef.dev/Images/dev_guides/create_backend_plugin/5.png)|
 | :--: |
 
 ```ts
@@ -144,7 +144,7 @@ This step is optional but necessary for generating documentation using **Swagger
 #### Activating the Documentation File Checkbox
 Check the box to generate a file containing the **API documentation** 
 
-|![Етап 6](../../images/dev_guides/create_backend_plugin/6.png)|
+|![Етап 6](https://mef.dev/Images/dev_guides/create_backend_plugin/6.png)|
 | :--: |
 
 Alternatively, you can add the following code to your project file:
@@ -155,7 +155,7 @@ Alternatively, you can add the following code to your project file:
 ```
 #### Filling in the Main Plugin Information 
 Fill in the necessary information for your plugin:
-|![Етап 7](../../images/dev_guides/create_backend_plugin/7.png)|
+|![Етап 7](https://mef.dev/Images/dev_guides/create_backend_plugin/7.png)|
 | :--: |
 
 Alternatively, you can add the following code to your project file:
@@ -269,7 +269,7 @@ private static IEnumerable<PluginConfigSetting> GetConnectionSection()
 ## Package Registration
 Go to the plugin creation page.
 
-|![Cторінкa створення Етап 8](../../images/dev_guides/create_backend_plugin/8.png)|
+|![Cторінкa створення Етап 8](https://mef.dev/Images/dev_guides/create_backend_plugin/8.png)|
 | :--: |
 
 This page is located in the "Plugins" menu. Then, proceed to the plugin creation page.
@@ -279,7 +279,7 @@ In the **Alias** field, enter the subject area name of the plugin, and in the **
 
 To upload a ready-made ZIP-archive of the plugin to the [mef.dev technical preview](https://preview.mef.dev/rflnk/KKtKZAipNBYheGDPAt%2fU4BYdywdGkODMFYwcfR9O7vsIz%2f5iTq6R2UyD5fvKwbvJ), go to the plugin configuration page in the  *Backend* block and click the **Upload New Version** button.
 
-|![Cторінкa створення Етап 9](../../images/dev_guides/create_backend_plugin/9.png)|
+|![Cторінкa створення Етап 9](https://mef.dev/Images/dev_guides/create_backend_plugin/9.png)|
 | :--: |
 
 Select the necessary version and click **Save.**
@@ -303,7 +303,7 @@ Within the platform, there is an endpoint for checking the health of the plugin:
 https://preview.mef.dev/api/v1/<alias>/plugins/<PluginMefName>/version.json?detaillevel=detailed
 ```
 
-|![detaillevel=detailed Етап 10](../../images/dev_guides/create_backend_plugin/10.png)|
+|![detaillevel=detailed Етап 10](https://mef.dev/Images/dev_guides/create_backend_plugin/10.png)|
 | :--: |
 
 If you get a similar result, your plugin has been successfully uploaded to the platform and is ready to work.
@@ -329,7 +329,7 @@ curl --location --request POST 'http://localhost:5000/api/v1/<alias>/restresourc
 }'
 ```
 
-|![detaillevel=detailed Етап 11](../../images/dev_guides/create_backend_plugin/11.png)|
+|![detaillevel=detailed Етап 11](https://mef.dev/Images/dev_guides/create_backend_plugin/11.png)|
 | :--: |
 
 ----
