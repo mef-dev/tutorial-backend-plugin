@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TestPlugin;
 
-[Export("testentity", typeof(IControllerPlugin))]
-public class TestEntityPlugin : IControllerPlugin
+[Export("restresource", typeof(IControllerPlugin))]
+public class RestResourcePlugin : IControllerPlugin
 {
     private HttpRequest _request;
     private HttpResponse _response;
@@ -68,6 +68,23 @@ public class TestEntityPlugin : IControllerPlugin
         return new DataResponseModel
         {
             Id = 1,
+            Name = "walk dog",
+            IsComplete = true
+        };
+    }
+
+    [HttpGet, Route("{id}")]
+    public DataResponseModel GetItem([FromRoute] long id)
+    {
+        // How to get header
+        var apiKeyFromHeader = _request.Headers["Last-Modified"];
+
+        // How to get query
+        var apiKeyFromQuery = _request.Query["Last-Modified"];
+
+        return new DataResponseModel
+        {
+            Id = id,
             Name = "walk dog",
             IsComplete = true
         };
