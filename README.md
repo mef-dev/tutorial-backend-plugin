@@ -4,7 +4,7 @@
 
 > You will also need  [dotnet CLI](https://docs.microsoft.com/ru-ru/dotnet/core/tools/dotnet) installed.
 
-> If you have already used plugins for the platform, the instructions for creating plugins based on `iBackendPlugin` can be found [here](https://mef.dev/uk/dev_guides/first_backend_plugin_previous.md)
+> If you have already used plugins for the platform, the instructions for creating plugins based on `iBackendPlugin` can be found [here](https://github.com/mef-dev/tutorial-backend-plugin/tree/ibackend-plugin)
 
 ## Implementation
 
