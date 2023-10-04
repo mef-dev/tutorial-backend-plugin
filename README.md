@@ -65,7 +65,8 @@ After uploading, you have got to switch to the uploaded version and click **Save
 
 > Alternatively, you can upload the plugin using the publish API method provided by the platform::
 
-```curl --location 'http://localhost:5000/api/v1/plugins/test/TestPlugin/publish' \
+```
+curl --location 'http://localhost:5000/api/v1/plugins/test/TestPlugin/publish' \
 --header 'Authorization: Basic userpass' \
 --form 'file=@"/path/to/file"
 ```
