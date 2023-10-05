@@ -4,7 +4,7 @@
 
 > You will also need  [dotnet CLI](https://docs.microsoft.com/ru-ru/dotnet/core/tools/dotnet) installed.
 
-> If you have already used plugins for the platform, the instructions for creating plugins based on `iBackendPlugin` can be found [here](https://mef.dev/uk/dev_guides/first_backend_plugin_previous.md)
+> If you have already used plugins for the platform, the instructions for creating plugins based on `iBackendPlugin` can be found [here](https://mef.dev/dev_guides/first_backend_plugin_previous.md)
 
 ## Implementation
 
@@ -21,14 +21,15 @@ You can create a plugin using this instruction, or you can use an existing examp
 ____
 
 ## Project Creation
+
 To begin, you need to create a new project. Select **Create a new project**
 
-|![Етап 1](https://mef.dev/Images/dev_guides/create_backend_plugin/1.png)|
+|![Етап 1](../../images/dev_guides/create_backend_plugin/1.png)|
 | :--: |
 
 Also, choose **Class library**  and the **С#** programming language:
 
-|![Етап 2](https://mef.dev/Images/dev_guides/create_backend_plugin/2.png)|
+|![Етап 2](../../images/dev_guides/create_backend_plugin/2.png)|
 | :--: |
 
 Configure the new project:
@@ -37,17 +38,22 @@ Configure the new project:
 - Set the location where it will be saved in **Location**
 - Check the box to save the **solution** in the same folder as the project:
 
-|![Етап 3](https://mef.dev/Images/dev_guides/create_backend_plugin/3.png)|
+|![Етап 3](../../images/dev_guides/create_backend_plugin/3.png)|
 | :--: |
 
 Under additional information, it is recommended to select the **.NET(Long Term Support)** version:
 
-|![Етап 4](https://mef.dev/Images/dev_guides/create_backend_plugin/4.png)|
+|![Етап 4](../../images/dev_guides/create_backend_plugin/4.png)|
 | :--: |
 
 ----
+
 ## Creating the Plugin Class
+
 #### Adding a Class
+
+A plugin implementation can include multiple classes that are exported, thereby providing separate <Export Name> endpoints for external http requests, for the example below `RestResource`
+
 ```ts
 namespace TestPlugin;
 public class RestResource
@@ -55,10 +61,12 @@ public class RestResource
 
 }
 ```
+
 #### Adding NuGet Dependencies and the Export Attribute.
+
 Search for the `MEF.DEV.Common.Plugin` extension and install it:
 
-|![Етап 5](https://mef.dev/Images/dev_guides/create_backend_plugin/5.png)|
+|![Етап 5](../../images/dev_guides/create_backend_plugin/5.png)|
 | :--: |
 
 ```ts
@@ -72,6 +80,7 @@ public class RestResource
 ```
 
 #### Implementing Interface Members
+
 ```ts
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -81,7 +90,7 @@ public class RestResource : IControllerPlugin
     private HttpRequest _request;
     private HttpResponse _response;
     private IApiContext _apiContext;
-    
+
     HttpRequest IControllerPlugin.Request
     {
         set => _request = value;
@@ -95,8 +104,11 @@ public class RestResource : IControllerPlugin
         set => _apiContext = value;
     }
 ```
+
 #### Creating the "create-item" Method
+
 It's important to note that the request and response models can be customized to your requirements.
+
 ```ts
 [HttpGet, Route("{id}/get-item")]
 public DataResponseModel GetItem([FromRoute] long id)
@@ -138,27 +150,37 @@ public class DataResponseModel
     public bool IsComplete { get; set; }
 }
 ```
-----
-## Populating the Swagger Specification
-This step is optional but necessary for generating documentation using **Swagger**.
-#### Activating the Documentation File Checkbox
-Check the box to generate a file containing the **API documentation** 
 
-|![Етап 6](https://mef.dev/Images/dev_guides/create_backend_plugin/6.png)|
+----
+
+## Populating the Swagger Specification
+
+This step is optional but necessary for generating documentation using **Swagger**.
+
+#### Activating the Documentation File Checkbox
+
+Check the box to generate a file containing the **API documentation**
+
+|![Етап 6](../../images/dev_guides/create_backend_plugin/6.png)|
 | :--: |
 
 Alternatively, you can add the following code to your project file:
+
 ```ts
 <PropertyGroup>
-  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
 </PropertyGroup>
 ```
-#### Filling in the Main Plugin Information 
+
+#### Filling in the Main Plugin Information
+
 Fill in the necessary information for your plugin:
-|![Етап 7](https://mef.dev/Images/dev_guides/create_backend_plugin/7.png)|
+
+|![Етап 7](../../images/dev_guides/create_backend_plugin/7.png)|
 | :--: |
 
 Alternatively, you can add the following code to your project file:
+
 ```ts
 <PropertyGroup>
     <Title>Todo title</Title>
@@ -170,6 +192,7 @@ Alternatively, you can add the following code to your project file:
 ```
 
 #### Filling in Method Information
+
 To associate models with method responses, add the **Consumes** and **Produces** attributes:
 ```ts
 [ProducesResponseType(typeof(DataResponseModel), StatusCodes.Status200OK)]
@@ -178,6 +201,7 @@ To associate models with method responses, add the **Consumes** and **Produces**
 // [Produces("application/json")] // http RESPONSE content-type, application/json by default
 ```
 #### Adding Method Description and Examples Using XML Comments
+
 The documentation that will be displayed during generation:
 ```ts
 /// <summary>
@@ -233,35 +257,35 @@ public class ConfigPlugin : IPluginConfig
         internal static string Report = "Report";
     }
 
-private readonly Dictionary<string, IEnumerable<PluginConfigSetting>> _configDictionary = new()
+    private readonly Dictionary<string, IEnumerable<PluginConfigSetting>> _configDictionary = new()
     {
         { Keys.Connection, GetConnectionSection() }
     };
 
-public IDictionary<string, IEnumerable<PluginConfigSetting>> Get()
+    public IDictionary<string, IEnumerable<PluginConfigSetting>> Get()
     {
         return _configDictionary;
     }
 
-public IDictionary<string, IEnumerable<PluginConfigSetting>> Set(IDictionary<string, IEnumerable<PluginConfigSetting>> config)
+    public IDictionary<string, IEnumerable<PluginConfigSetting>> Set(IDictionary<string, IEnumerable<PluginConfigSetting>> config)
     {
         throw new NotImplementedException();
     }
 
-private static IEnumerable<PluginConfigSetting> GetConnectionSection()
+    private static IEnumerable<PluginConfigSetting> GetConnectionSection()
     {
         yield return new PluginConfigSetting()
         {
             SettingType = PluginConfigSettingType.LongText,
-                Name = "ExampleName",
-                Value = @"{
+            Name = "ExampleName",
+            Value = @"{
             ""ConnectionStrings"": {
-            ""ConnectionString"": ""Server=sqlserver;Database=database;User ID=userid;Password=password;Trusted_Connection=No"",
-        },
+                ""ConnectionString"": ""Server=sqlserver;Database=database;User ID=userid;Password=password;Trusted_Connection=No"",
+            },
             ""DebugLevel"" : ""Trace""}"
-    };
-    yield break;
-}
+        };
+        yield break;
+    }
 }
 ```
 ----
@@ -269,26 +293,26 @@ private static IEnumerable<PluginConfigSetting> GetConnectionSection()
 ## Package Registration
 Go to the plugin creation page.
 
-|![Cторінкa створення Етап 8](https://mef.dev/Images/dev_guides/create_backend_plugin/8.png)|
+|![Cторінкa створення Етап 8](../../images/dev_guides/create_backend_plugin/8.png)|
 | :--: |
 
 This page is located in the "Plugins" menu. Then, proceed to the plugin creation page.
 
-In the **Alias** field, enter the subject area name of the plugin, and in the **Name** field, enter the plugin name. Choose the **Service** type, which corresponds to a plugin containing only the API component without custom configuration. Enter the name of your project from the repository, and click **Save**.
+In the **Alias** field, enter the subject area name of the plugin (in our case it is `test`), and in the **Name** field enter the plugin name (in our case it is `portal-test`). Choose the **Service** type, which corresponds to a plugin containing only the API component without custom configuration. Enter the name of your project from the repository, and click **Save**.
 ##  Uploading Package Version
 
 To upload a ready-made ZIP-archive of the plugin to the [mef.dev technical preview](https://preview.mef.dev/rflnk/KKtKZAipNBYheGDPAt%2fU4BYdywdGkODMFYwcfR9O7vsIz%2f5iTq6R2UyD5fvKwbvJ), go to the plugin configuration page in the  *Backend* block and click the **Upload New Version** button.
 
-|![Cторінкa створення Етап 9](https://mef.dev/Images/dev_guides/create_backend_plugin/9.png)|
+|![Cторінкa створення Етап 9](../../images/dev_guides/create_backend_plugin/9.png)|
 | :--: |
 
 Select the necessary version and click **Save.**
 
 >  Alternatively, you can upload the plugin using the **publish** API method provided by the platform::
 ```ts
-curl --location 'http://localhost:5000/api/v2/plugins/test/TestPlugin/publish' \
+curl --location 'https://preview.mef.dev/api/v2/plugins/<alias>/<PluginMefName>/publish' \
 --header 'Authorization: Basic userpass' \
---form 'file=@"/path/to/file"'
+--form 'file=@"/local-path/to/file"'
 ```
 
 ##  Package Dry run
@@ -303,7 +327,7 @@ Within the platform, there is an endpoint for checking the health of the plugin:
 https://preview.mef.dev/api/v1/<alias>/plugins/<PluginMefName>/version.json?detaillevel=detailed
 ```
 
-|![detaillevel=detailed Етап 10](https://mef.dev/Images/dev_guides/create_backend_plugin/10.png)|
+|![detaillevel=detailed Етап 10](../../images/dev_guides/create_backend_plugin/10.png)|
 | :--: |
 
 If you get a similar result, your plugin has been successfully uploaded to the platform and is ready to work.
@@ -313,25 +337,27 @@ Sending requests to the plugin will be demonstrated using GET requests.
 
 To send requests, use the following template:
 ```
-https://preview.mef.dev/api/v1/<alias>/<EntityName>
+https://preview.mef.dev/api/v1/<alias>/<Export Name>
 ```
 You can add any parameters, headers, and fields to the request body, but make sure to reflect them in the input model of the plugin. Here's an example of a request:
 ```ts
-curl --location --request GET 'http://localhost:5000/api/v1/<alias>/restresource/1/get-item' \
+curl --location --request GET 'https://preview.mef.dev/api/v1/test/restresource/1/get-item' \
 --header 'authorization: Basic userpass' \
 --header 'Content-Type: application/json'
 
-curl --location --request POST 'http://localhost:5000/api/v1/<alias>/restresource/create-item' \
+curl --location --request POST 'https://preview.mef.dev/api/v1/test/restresource/create-item' \
 --header 'authorization: Basic userpass' \
 --header 'Content-Type: application/json' \
 --data '{
-    "name": "walk dog"
+"name": "walk dog"
 }'
 ```
 
-|![detaillevel=detailed Етап 11](https://mef.dev/Images/dev_guides/create_backend_plugin/11.png)|
+|![detaillevel=detailed Етап 11](../../images/dev_guides/create_backend_plugin/11.png)|
 | :--: |
 
 ----
 ## Useful Links:
 > GitHub repository link for the backend-plugin-example: https://github.com/mef-dev/tutorial-backend-plugin
+
+> The implementation of backend using by the Angular application is available also  [tutorial-ui-plugin](https://github.com/mef-dev/tutorial-ui-plugin)
