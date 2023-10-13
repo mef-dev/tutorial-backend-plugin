@@ -12,15 +12,15 @@ public class RestResourcePlugin : IControllerPlugin
     private HttpResponse _response;
     private IApiContext _apiContext;
 
-    HttpRequest IControllerPlugin.Request
+    public HttpRequest Request
     {
         set => _request = value;
     }
-    HttpResponse IControllerPlugin.Response
+    public HttpResponse Response
     {
         set => _response = value;
     }
-    IApiContext IControllerPlugin.ApiContext
+    public IApiContext ApiContext
     {
         set => _apiContext = value;
     }
