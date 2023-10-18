@@ -14,17 +14,19 @@ public class RestResourcePlugin : IControllerPlugin
 
     public HttpRequest Request
     {
+        get { return _request; }
         set => _request = value;
     }
     public HttpResponse Response
     {
+        get { return _response; }
         set => _response = value;
     }
     public IApiContext ApiContext
     {
+        get { return _apiContext; }
         set => _apiContext = value;
     }
-
     /// <summary>
     ///     Create Todo item short description
     /// </summary>
