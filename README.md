@@ -91,16 +91,19 @@ public class RestResource : IControllerPlugin
     private HttpResponse _response;
     private IApiContext _apiContext;
 
-    HttpRequest IControllerPlugin.Request
+    public HttpRequest Request
     {
+        get { return _request; }
         set => _request = value;
     }
-    HttpResponse IControllerPlugin.Response
+    public HttpResponse Response
     {
+        get { return _response; }
         set => _response = value;
     }
-    IApiContext IControllerPlugin.ApiContext
+    public IApiContext ApiContext
     {
+        get { return _apiContext; }
         set => _apiContext = value;
     }
 ```
