@@ -1,4 +1,4 @@
-# Instruction: "How to create Backend plugin project"
+# Instruction: "How to create plugin project"
 ----
 > To develop a plugin, you will need an IDE with support for C# programming language. This instruction was created using [VisualStudio](https://visualstudio.microsoft.com/vs/).
 
@@ -8,7 +8,7 @@
 
 ## Implementation
 
-MEF.DEV platform supports an architectural style of REST development where you can create methods to support your requirements. It is important to follow minimal rules when implementing methods. The implementation of a method should be marked with attributes that are subclasses of `HttpMethodAttribute` та опційно атрибутом `RouteAttribute`, and optionally with the RouteAttribute attribute if there are multiple methods of the same type.
+MEF.DEV platform supports an architectural style of REST development where you can create methods to support your requirements. It is important to follow minimal rules when implementing methods. The implementation of a method should be marked with attributes that are subclasses of `HttpMethodAttribute` and optionally with the `RouteAttribute` attribute if there are multiple methods of the same type.
 
 It is important to understand that the platform provides simplified access to parts of the `HttpContext` by providing the ability to implement commonly known properties, namely `HttpRequest` and `HttpResponse`, which provide access to headers, query parameters, and more. Additionally, by implementing the `IApiContext` property, you can access the platform context, providing information about plugin configuration, user, tenant, and other available services in the tenant (sending messages, etc.).
 
@@ -16,7 +16,7 @@ To let the MEF.DEV platform know which class to use for request deserialization,
 
 It's important to note that during plugin registration in the platform, the project's name is used, specifically the **Assembly name** (for example, `TestPlugin` below).
 
-You can create a plugin using this instruction, or you can use an existing example by following this link: [TestPlugin.sln](https://github.com/mef-dev/tutorial-backend-plugin/blob/master/TestPlugin.sln).
+You can create a plugin using this instruction, or you can use an existing example by following this link: [backend-template](https://github.com/mef-dev/tutorial-backend-plugin).
 
 ____
 
@@ -293,6 +293,17 @@ public class ConfigPlugin : IPluginConfig
 ```
 ----
 
+## Package Build
+
+Make a `portable` build and publish the package with the `self-contained` option as shown in the screenshot below or using the command example below:
+
+|![publish package](https://mef.dev/Images/dev_guides/create_backend_plugin/12.png)|
+| :--: |
+
+```
+dotnet publish -c Release -r portable -p:PublishDir=bin\Publish\net6.0 --no-self-contained
+```
+
 ## Package Registration
 Go to the plugin creation page.
 
@@ -301,7 +312,7 @@ Go to the plugin creation page.
 
 This page is located in the "Plugins" menu. Then, proceed to the plugin creation page.
 
-In the **Alias** field, enter the subject area name of the plugin, and in the **Name** field, enter the plugin name. Choose the **Service** type, which corresponds to a plugin containing only the API component without custom configuration. Enter the name of your project from the repository, and click **Save**.
+In the **Alias** field, enter the subject area name of the plugin (in our case it is `test`), and in the **Name** field enter the plugin name (in our case it is `portal-test`). Choose the **Service** type, which corresponds to a plugin containing only the API component without custom configuration. Enter the name of your project from the repository, and click **Save**.
 ##  Uploading Package Version
 
 To upload a ready-made ZIP-archive of the plugin to the [mef.dev technical preview](https://preview.mef.dev/rflnk/KKtKZAipNBYheGDPAt%2fU4BYdywdGkODMFYwcfR9O7vsIz%2f5iTq6R2UyD5fvKwbvJ), go to the plugin configuration page in the  *Backend* block and click the **Upload New Version** button.
