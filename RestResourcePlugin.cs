@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TestPlugin;
 
+/// <summary>
+///     Export Name Todo description
+/// </summary>
 [Export("restresource", typeof(IControllerPlugin))]
 public class RestResourcePlugin : IControllerPlugin
 {
@@ -27,6 +30,7 @@ public class RestResourcePlugin : IControllerPlugin
         get { return _apiContext; }
         set => _apiContext = value;
     }
+
     /// <summary>
     ///     Create Todo item short description
     /// </summary>
