@@ -352,7 +352,7 @@ There are several optional files for this way of publish to support the platfrom
 
 These files have to be added into project with the additional property **copy to output directory** = `copy if never`
 
-|![copy_if_never](https://mef.dev/Images//create_backend_plugin/13.png)|
+|![copy_if_never](https://mef.dev/Images/dev_guides/create_backend_plugin/13.png)|
 | :--: |
 
 ##  Package Dry run
