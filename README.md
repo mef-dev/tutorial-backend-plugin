@@ -113,7 +113,7 @@ public class RestResource : IControllerPlugin
 It's important to note that the request and response models can be customized to your requirements.
 
 ```ts
-[HttpGet, Route("{id}/get-item")]
+[HttpGet, Route("{id}")]
 public DataResponseModel GetItem([FromRoute] long id)
 {
     // How to get header
@@ -171,7 +171,7 @@ Alternatively, you can add the following code to your project file:
 
 ```ts
 <PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 </PropertyGroup>
 ```
 
@@ -260,35 +260,35 @@ public class ConfigPlugin : IPluginConfig
         internal static string Report = "Report";
     }
 
-    private readonly Dictionary<string, IEnumerable<PluginConfigSetting>> _configDictionary = new()
+private readonly Dictionary<string, IEnumerable<PluginConfigSetting>> _configDictionary = new()
     {
         { Keys.Connection, GetConnectionSection() }
     };
 
-    public IDictionary<string, IEnumerable<PluginConfigSetting>> Get()
+public IDictionary<string, IEnumerable<PluginConfigSetting>> Get()
     {
         return _configDictionary;
     }
 
-    public IDictionary<string, IEnumerable<PluginConfigSetting>> Set(IDictionary<string, IEnumerable<PluginConfigSetting>> config)
+public IDictionary<string, IEnumerable<PluginConfigSetting>> Set(IDictionary<string, IEnumerable<PluginConfigSetting>> config)
     {
         throw new NotImplementedException();
     }
 
-    private static IEnumerable<PluginConfigSetting> GetConnectionSection()
+private static IEnumerable<PluginConfigSetting> GetConnectionSection()
     {
         yield return new PluginConfigSetting()
         {
             SettingType = PluginConfigSettingType.LongText,
-            Name = "ExampleName",
-            Value = @"{
-                ""ConnectionStrings"": {
-                    ""ConnectionString"": ""Server=sqlserver;Database=database;User ID=userid;Password=password;Trusted_Connection=No"",
-                },
-                ""DebugLevel"" : ""Trace""}"
-        };
-        yield break;
-    }
+                Name = "ExampleName",
+                Value = @"{
+            ""ConnectionStrings"": {
+            ""ConnectionString"": ""Server=sqlserver;Database=database;User ID=userid;Password=password;Trusted_Connection=No"",
+        },
+            ""DebugLevel"" : ""Trace""}"
+    };
+    yield break;
+}
 }
 ```
 ----
@@ -329,6 +329,32 @@ curl --location 'https://preview.mef.dev/api/v2/plugins/<alias>/<PluginMefName>/
 --form 'file=@"/local-path/to/file"'
 ```
 
+Important to note, that if you use the **publish** API method, you have to add the mandatory `metadata.json` file with example content below:
+
+```
+{
+   "name":"TestPlugin Name",
+   "serviceType":"API",
+   "description":"This TestPlugin is used for tutorial goals under MIT license.",
+   "dependencies":[],
+   "config":{
+      "routesUI":[]
+   },
+   "externalUrl":"https://opensource.org/license/mit",
+   "configuration":null
+}
+```
+
+There are several optional files for this way of publish to support the platfroms marketplace requirements (https://preview.mef.dev/store), namely:
+- `description.html` human readable description of your plugin
+- `small.png` picture of your plugin within the dependency visualisation
+- `standard.png` square picture of your plugin within the platfroms marketplace
+
+These files have to be added into project with the additional property **copy to output directory** = `copy if never`
+
+|![copy_if_never](https://mef.dev/Images//create_backend_plugin/13.png)|
+| :--: |
+
 ##  Package Dry run
 
 To check the functionality of the plugin's API, you can use packet sniffer programs like *Postman*.
@@ -338,7 +364,7 @@ For sending requests, you need to authenticate, typically using the token-based 
 ## Basic Health Check
 Within the platform, there is an endpoint for checking the health of the plugin:
 ```ts
-https://preview.mef.dev/api/v1/<alias>/plugins/<PluginMefName>/version.json?detaillevel=detailed
+https://preview.mef.dev/api/v2/<alias>/plugins/<PluginMefName>/version.json?detaillevel=detailed
 ```
 
 |![detaillevel=detailed Етап 10](https://mef.dev/Images/dev_guides/create_backend_plugin/10.png)|
@@ -351,15 +377,15 @@ Sending requests to the plugin will be demonstrated using GET requests.
 
 To send requests, use the following template:
 ```
-https://preview.mef.dev/api/v1/<alias>/<Export Name>
+https://preview.mef.dev/api/v2/<alias>/<Export Name>
 ```
 You can add any parameters, headers, and fields to the request body, but make sure to reflect them in the input model of the plugin. Here's an example of a request:
 ```ts
-curl --location --request GET 'https://preview.mef.dev/api/v1/test/restresource/1/get-item' \
+curl --location --request GET 'https://preview.mef.dev/api/v2/test/restresource/1' \
 --header 'authorization: Basic userpass' \
 --header 'Content-Type: application/json'
 
-curl --location --request POST 'https://preview.mef.dev/api/v1/test/restresource/create-item' \
+curl --location --request POST 'https://preview.mef.dev/api/v2/test/restresource/create-item' \
 --header 'authorization: Basic userpass' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -367,8 +393,8 @@ curl --location --request POST 'https://preview.mef.dev/api/v1/test/restresource
 }'
 ```
 
-|![detaillevel=detailed Етап 11](https://mef.dev/Images/dev_guides/create_backend_plugin/11.png)|
-| :--: |
+| ![detaillevel=detailed Етап 11](https://mef.dev/Images/dev_guides/create_backend_plugin/11.png#v2) |
+|:--------------------------------------------------------------------------------------------------:|
 
 ----
 ## Useful Links:

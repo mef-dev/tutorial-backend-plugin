@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.5</Version>
     <Description>Todo description</Description>
     <Title>Todo title</Title>
     <Product>Todo API</Product>
@@ -14,6 +14,21 @@
 
   <ItemGroup>
     <PackageReference Include="MEF.DEV.Common.Plugin" Version="1.3.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="description.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="metadata.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="standard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
