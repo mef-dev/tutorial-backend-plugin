@@ -2,6 +2,9 @@
 using UCP.Common.Plugin;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UCP.Common.Plugin.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TestPlugin;
 
@@ -88,10 +91,14 @@ public class RestResourcePlugin : IControllerPlugin
         // How to get query
         var apiKeyFromQuery = _request.Query["Last-Modified"];
 
+        // How to get service configuration
+        var configProvider = _apiContext.ServiceProvider().GetService<IControllerPluginConfigProvider>();
+        var configuration = configProvider!.Get<IConfigurationRoot>();
+
         return new DataResponseModel
         {
             Id = id,
-            Name = "walk dog",
+            Name = configuration.GetSection("myurl").Value,
             IsComplete = true
         };
     }

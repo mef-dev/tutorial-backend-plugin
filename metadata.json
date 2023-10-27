@@ -10,5 +10,5 @@
     ]
   },
   "externalUrl": null,
-  "configuration": null
+  "configuration": "{\"myurl\": \"https://my.url\"}"
 }
