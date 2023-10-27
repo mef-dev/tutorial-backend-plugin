@@ -98,7 +98,7 @@ public class RestResourcePlugin : IControllerPlugin
         return new DataResponseModel
         {
             Id = id,
-            Name = configuration.GetSection("myurl").Value,
+            Name = configuration?.GetSection("myurl").Value,
             IsComplete = true
         };
     }
