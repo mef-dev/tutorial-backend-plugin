@@ -20,17 +20,17 @@ public class RestResourcePlugin : IControllerPlugin
 
     public HttpRequest Request
     {
-        get { return _request; }
+        get => _request;
         set => _request = value;
     }
     public HttpResponse Response
     {
-        get { return _response; }
+        get => _response;
         set => _response = value;
     }
     public IApiContext ApiContext
     {
-        get { return _apiContext; }
+        get => _apiContext;
         set => _apiContext = value;
     }
 
@@ -55,6 +55,27 @@ public class RestResourcePlugin : IControllerPlugin
     ///     Success
     /// </response>
     /// <response code='500' 
+    ///     examples='{
+    ///         "UNKNOWN_CONTEXT": {
+    ///             "summary": "Unknown Service Context",
+    ///             "description": "The request failed completely due to an unknown service context value",
+    ///             "value": {
+    ///                "cause": "CHARGING_FAILED",
+    ///                "title": "Incomplete or erroneous session or subscriber information",
+    ///                "invalidParams": [
+    ///                     {
+    ///                         "param": "/serviceRating/0/serviceContextId",
+    ///                         "reason": "unknown context"
+    ///                     }
+    ///                 ]
+    ///             }
+    ///         },
+    ///         "UNKNOWN_RESPONSE_CODE": {
+    ///             "summary": "Unknown Response Code",
+    ///             "description": "Internal Error",
+    ///             "value": "405"
+    ///         }
+    ///     }'
     ///     headers='{
     ///         "Last-Modified":{
     ///             "description": "",
