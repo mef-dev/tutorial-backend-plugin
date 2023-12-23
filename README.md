@@ -93,17 +93,17 @@ public class RestResource : IControllerPlugin
 
     public HttpRequest Request
     {
-        get { return _request; }
+        get => _request;
         set => _request = value;
     }
     public HttpResponse Response
     {
-        get { return _response; }
+        get => _response;
         set => _response = value;
     }
     public IApiContext ApiContext
     {
-        get { return _apiContext; }
+        get => _apiContext;
         set => _apiContext = value;
     }
 ```
@@ -116,41 +116,70 @@ It's important to note that the request and response models can be customized to
 [HttpGet, Route("{id}")]
 public DataResponseModel GetItem([FromRoute] long id)
 {
-    // How to get header
-    var apiKeyFromHeader = _request.Headers["Last-Modified"];
-
-    // How to get query
-    var apiKeyFromQuery = _request.Query["Last-Modified"];
+    // How to get service configuration
+    var configProvider = _apiContext.ServiceProvider().GetService<IControllerPluginConfigProvider>();
+    var configuration = configProvider!.Get<IConfigurationRoot>();
 
     return new DataResponseModel
     {
         Id = id,
-        Name = "walk dog",
+        Name = configuration?.GetSection("myurl").Value,
         IsComplete = true
     };
 }
 
 [HttpPost, Route("create-item")]
-public DataResponseModel CreateItem([FromBody] DataRequestModel model)
+public object CreateItem(
+    [FromHeader] string lastModified,
+    [FromQuery] string lang,
+    [FromBody] DataRequestModel model
+    )
 {
-    return new DataResponseModel
+    return new List<DataResponseModel>
     {
-        Id = 1,
-        Name = "walk dog",
-        IsComplete = true
+        new()
+        {
+            Name = model.Name,
+            LastModified = lastModified,
+            Lang = lang
+        }
     };
 }
 
 public class DataRequestModel
 {
-    public string Name { get; set; }
+    public long Id
+    {
+        get; set;
+    }
+    public string Name
+    {
+        get; set;
+    }
 }
 
 public class DataResponseModel
 {
-    public long Id { get; set; }
-    public string Name { get; set; }
-    public bool IsComplete { get; set; }
+    public long Id
+    {
+        get; set;
+    }
+    public string Name
+    {
+        get; set;
+    }
+    public bool IsComplete
+    {
+        get; set;
+    }
+    public string LastModified
+    {
+        get; set;
+    }
+    public string Lang 
+    {
+        get; set; 
+    }
 }
 ```
 
@@ -198,7 +227,7 @@ Alternatively, you can add the following code to your project file:
 
 To associate models with method responses, add the **Consumes** and **Produces** attributes:
 ```ts
-[ProducesResponseType(typeof(DataResponseModel), StatusCodes.Status200OK)]
+[ProducesResponseType(typeof(List<DataRequestModel>), StatusCodes.Status200OK)]
 [ProducesResponseType(typeof(DataResponseModel), StatusCodes.Status500InternalServerError)]
 // [Consumes("application/json")] // http REQUEST content-type, application/json by default
 // [Produces("application/json")] // http RESPONSE content-type, application/json by default
@@ -213,11 +242,34 @@ The documentation that will be displayed during generation:
 /// <remarks>
 ///     Create Todo item long description
 /// </remarks>
-/// <param name='model' example='{
-///     "name": "walk dog"
-/// }'>
+/// <param name="id"></param>
+/// <param name='model'
+///     examples='{
+///         "UNKNOWN_CONTEXT": {
+///             "summary": "Unknown Service Context",
+///             "description": "The request failed completely due to an unknown service context value",
+///             "value": {
+///                "cause": "CHARGING_FAILED",
+///                "title": "Incomplete or erroneous session or subscriber information",
+///                "invalidParams": [
+///                     {
+///                         "param": "/serviceRating/0/serviceContextId",
+///                         "reason": "unknown context"
+///                     }
+///                 ]
+///             }
+///         },
+///         "UNKNOWN_RESPONSE_CODE": {
+///             "summary": "Unknown Response Code",
+///             "description": "Internal Error",
+///             "value": "405"
+///         }
+///     }'
+/// >
 ///     DataRequestModel model for Create item
 /// </param>
+/// <param name="lastModified"></param>
+/// <param name="lang"></param>
 /// <response code='200'
 ///     example='{
 ///         "id": 1,
@@ -228,6 +280,27 @@ The documentation that will be displayed during generation:
 ///     Success
 /// </response>
 /// <response code='500' 
+///     examples='{
+///         "UNKNOWN_CONTEXT": {
+///             "summary": "Unknown Service Context",
+///             "description": "The request failed completely due to an unknown service context value",
+///             "value": {
+///                "cause": "CHARGING_FAILED",
+///                "title": "Incomplete or erroneous session or subscriber information",
+///                "invalidParams": [
+///                     {
+///                         "param": "/serviceRating/0/serviceContextId",
+///                         "reason": "unknown context"
+///                     }
+///                 ]
+///             }
+///         },
+///         "UNKNOWN_RESPONSE_CODE": {
+///             "summary": "Unknown Response Code",
+///             "description": "Internal Error",
+///             "value": "405"
+///         }
+///     }'
 ///     headers='{
 ///         "Last-Modified":{
 ///             "description": "",

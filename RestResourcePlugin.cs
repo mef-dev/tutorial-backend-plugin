@@ -115,7 +115,7 @@ public class RestResourcePlugin : IControllerPlugin
     [ProducesResponseType(typeof(DataResponseModel), StatusCodes.Status500InternalServerError)]
     // [Consumes("application/json")] // http REQUEST content-type, application/json by default
     // [Produces("application/json")] // http RESPONSE content-type, application/json by default
-    [HttpPatch, Route("create-item")]
+    [HttpPost, Route("create-item")]
     public object CreateItem(
         [FromHeader] string lastModified,
         [FromQuery] string lang,
