@@ -40,11 +40,34 @@ public class RestResourcePlugin : IControllerPlugin
     /// <remarks>
     ///     Create Todo item long description
     /// </remarks>
-    /// <param name='model' example='{
-    ///     "name": "walk dog"
-    /// }'>
+    /// <param name="id"></param>
+    /// <param name='model'
+    ///     examples='{
+    ///         "UNKNOWN_CONTEXT": {
+    ///             "summary": "Unknown Service Context",
+    ///             "description": "The request failed completely due to an unknown service context value",
+    ///             "value": {
+    ///                "cause": "CHARGING_FAILED",
+    ///                "title": "Incomplete or erroneous session or subscriber information",
+    ///                "invalidParams": [
+    ///                     {
+    ///                         "param": "/serviceRating/0/serviceContextId",
+    ///                         "reason": "unknown context"
+    ///                     }
+    ///                 ]
+    ///             }
+    ///         },
+    ///         "UNKNOWN_RESPONSE_CODE": {
+    ///             "summary": "Unknown Response Code",
+    ///             "description": "Internal Error",
+    ///             "value": "405"
+    ///         }
+    ///     }'
+    /// >
     ///     DataRequestModel model for Create item
     /// </param>
+    /// <param name="lastModified"></param>
+    /// <param name="lang"></param>
     /// <response code='200'
     ///     example='{
     ///         "id": 1,
@@ -88,30 +111,32 @@ public class RestResourcePlugin : IControllerPlugin
     /// >
     ///     Error
     /// </response>
-    [ProducesResponseType(typeof(DataResponseModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<DataRequestModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(DataResponseModel), StatusCodes.Status500InternalServerError)]
     // [Consumes("application/json")] // http REQUEST content-type, application/json by default
     // [Produces("application/json")] // http RESPONSE content-type, application/json by default
-    [HttpPost, Route("create-item")]
-    public DataResponseModel CreateItem([FromBody] DataRequestModel model)
+    [HttpPatch, Route("{id}/update")]
+    public object CreateItem(
+        [FromRoute] long id,
+        [FromHeader(Name = "last-modified")] string lastModified,
+        [FromQuery(Name = "lang")] string lang,
+        [FromBody] DataRequestModel model)
     {
-        return new DataResponseModel
+        return new List<DataResponseModel>
         {
-            Id = 1,
-            Name = "walk dog",
-            IsComplete = true
+            new() 
+            {
+                Id = id,
+                Name = model.Name,
+                LastModified = lastModified,
+                Lang = lang
+            }
         };
     }
 
     [HttpGet, Route("{id}")]
     public DataResponseModel GetItem([FromRoute] long id)
     {
-        // How to get header
-        var apiKeyFromHeader = _request.Headers["Last-Modified"];
-
-        // How to get query
-        var apiKeyFromQuery = _request.Query["Last-Modified"];
-
         // How to get service configuration
         var configProvider = _apiContext.ServiceProvider().GetService<IControllerPluginConfigProvider>();
         var configuration = configProvider!.Get<IConfigurationRoot>();

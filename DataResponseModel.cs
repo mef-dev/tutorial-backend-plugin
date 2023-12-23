@@ -13,4 +13,12 @@ public class DataResponseModel
     {
         get; set;
     }
+    public string LastModified
+    {
+        get; set;
+    }
+    public string Lang 
+    {
+        get; set; 
+    }
 }

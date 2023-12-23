@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.1.8</Version>
+    <Version>1.0.2.2</Version>
     <Description>Todo description</Description>
     <Title>Todo title</Title>
     <Product>Todo API</Product>
