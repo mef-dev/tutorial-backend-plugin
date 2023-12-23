@@ -115,18 +115,16 @@ public class RestResourcePlugin : IControllerPlugin
     [ProducesResponseType(typeof(DataResponseModel), StatusCodes.Status500InternalServerError)]
     // [Consumes("application/json")] // http REQUEST content-type, application/json by default
     // [Produces("application/json")] // http RESPONSE content-type, application/json by default
-    [HttpPatch, Route("{id}/update")]
+    [HttpPatch, Route("create-item")]
     public object CreateItem(
-        [FromRoute] long id,
-        [FromHeader(Name = "last-modified")] string lastModified,
-        [FromQuery(Name = "lang")] string lang,
+        [FromHeader] string lastModified,
+        [FromQuery] string lang,
         [FromBody] DataRequestModel model)
     {
         return new List<DataResponseModel>
         {
-            new() 
+            new()
             {
-                Id = id,
                 Name = model.Name,
                 LastModified = lastModified,
                 Lang = lang
