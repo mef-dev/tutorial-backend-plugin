@@ -399,7 +399,9 @@ Select the necessary version and click **Save.**
 ```ts
 curl --location 'https://preview.mef.dev/api/v2/plugins/<alias>/<PluginMefName>/publish' \
 --header 'Authorization: Basic userpass' \
---form 'file=@"/local-path/to/file"'
+--form 'file=@"/local-path/to/file"' \
+--form 'updateVersion="true"' \
+--form 'updateTenantVersion="true"'
 ```
 
 Important to note, that if you use the **publish** API method, you have to add the mandatory `metadata.json` file with example content below:
