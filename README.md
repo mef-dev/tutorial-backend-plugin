@@ -68,7 +68,9 @@ After uploading, you have got to switch to the uploaded version and click **Save
 ```
 curl --location 'http://localhost:5000/api/v1/plugins/test/TestPlugin/publish' \
 --header 'Authorization: Basic userpass' \
---form 'file=@"/path/to/file"
+--form 'file=@"/path/to/file" \
+--form 'updateVersion="true"' \
+--form 'updateTenantVersion="true"'
 ```
 
 ##  Package Dry run
