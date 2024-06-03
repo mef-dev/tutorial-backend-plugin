@@ -1,4 +1,5 @@
-﻿using System.Composition;
+﻿using System.Collections.Generic;
+using System.Composition;
 using UCP.Common.Plugin;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,6 @@ public class RestResourcePlugin : IControllerPlugin
     /// <remarks>
     ///     Create Todo item long description
     /// </remarks>
-    /// <param name="id"></param>
     /// <param name='model'
     ///     examples='{
     ///         "UNKNOWN_CONTEXT": {
