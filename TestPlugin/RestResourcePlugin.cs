@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using UCP.Common.Plugin.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UCP.Common.Plugin.Models.Config;
 
 namespace TestPlugin;
 
@@ -137,6 +138,8 @@ public class RestResourcePlugin : IControllerPlugin
     {
         // How to get service configuration
         var configProvider = _apiContext.ServiceProvider().GetService<IControllerPluginConfigProvider>();
+        
+        // var configuration = configProvider!.Get<string>(); // get as string
         var configuration = configProvider!.Get<IConfigurationRoot>();
 
         return new DataResponseModel
@@ -144,6 +147,20 @@ public class RestResourcePlugin : IControllerPlugin
             Id = id,
             Name = configuration?.GetSection("myurl").Value,
             IsComplete = true
+        };
+    }
+    
+    [HttpGet, Route("tenant-config")]
+    public DataResponseModel GetTenantConfig([FromQuery] string name = "LoremText")
+    {
+        // How to get tenant configuration
+        var configProvider = _apiContext.ServiceProvider().GetService<IControllerPluginConfigProvider>()!;
+        var tenantConfig = configProvider.Get<PluginConfig>();
+        var pluginConfigSetting = tenantConfig.Connection.FirstOrDefault(c => c.Name == name);
+        
+        return new DataResponseModel
+        {
+            Name = pluginConfigSetting.Value.ToString()
         };
     }
 }
