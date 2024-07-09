@@ -1,14 +1,80 @@
 ﻿{
-  "name": "TestPlugin Name",
-  "serviceType": "API",
-  "description": null,
-  "dependencies": [
-  ],
-  "config": {
-    "routesUI": [
-
-    ]
-  },
-  "externalUrl": null,
-  "configuration": "{\"myurl\": \"https://my.url\"}"
+   "artifactType": "CSharp",
+   "name": "TestPlugin Name",
+   "serviceType": "API",
+   "license": "MIT",
+   "configuration": "{\"myurl\": \"https://my.url\"}",
+   "description": null,
+   "externalUrl": null,
+   "dependencies": [
+      
+   ],
+   "config": {
+      "routesUI": [
+         
+      ]
+   },
+   "tenantConfiguration": {
+      "connection": [
+         {
+            "settingType": "Text",
+            "name": "LoremText",
+            "value": "Lorem Ipsum"
+         },
+         {
+            "settingType": "LongText",
+            "name": "LoremLongText",
+            "value": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+         },
+         {
+            "settingType": "CheckBox",
+            "name": "LoremCheckBox",
+            "value": true
+         },
+         {
+            "settingType": "Color",
+            "name": "LoremColor",
+            "value": "#ff4444"
+         },
+         {
+            "settingType": "ComboBox",
+            "name": "LoremComboBox",
+            "value": 0,
+            "values": [
+               {
+                  "key": "Lorem",
+                  "value": 0
+               },
+               {
+                  "key": "Ipsum",
+                  "value": 1
+               }
+            ]
+         },
+         {
+            "settingType": "Radio",
+            "name": "LoremRadio",
+            "value": 0,
+            "values": [
+               {
+                  "key": "Lorem",
+                  "value": 0
+               },
+               {
+                  "key": "Ipsum",
+                  "value": 1
+               }
+            ]
+         }
+      ],
+      "uiParameters": [
+         
+      ],
+      "logic": [
+         
+      ],
+      "report": [
+         
+      ]
+   }
 }
