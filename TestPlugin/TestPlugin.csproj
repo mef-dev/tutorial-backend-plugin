@@ -13,16 +13,15 @@
   </PropertyGroup>
 
   <Target Name="PublishAndZip" AfterTargets="Publish">
-    <ZipDirectory
-      SourceDirectory="$(PublishDir)"
-      DestinationFile="$(PublishDir)\..\publish.zip"
-      Overwrite="true"
-    />
+    <ZipDirectory SourceDirectory="$(PublishDir)" DestinationFile="$(PublishDir)\..\publish.zip" Overwrite="true" />
   </Target>
 
   <ItemGroup>
     <None Update="description.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="LICENSE.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
