@@ -12,4 +12,9 @@ public class ControllerPluginConfigProviderMock : IControllerPluginConfigProvide
             .AddJsonString(@"{ ""myurl"": ""https://example.domain"" }")
             .Build() as T;
     }
+
+    public Task<T?> GetAsync<T>() where T : class
+    {
+        return Task.FromResult(Get<T>());
+    }
 }

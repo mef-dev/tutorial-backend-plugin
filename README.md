@@ -388,7 +388,7 @@ This page is located in the "Plugins" menu. Then, proceed to the plugin creation
 In the **Alias** field, enter the subject area name of the plugin (in our case it is `test`), and in the **Name** field enter the plugin name (in our case it is `portal-test`). Choose the **Service** type, which corresponds to a plugin containing only the API component without custom configuration. Enter the name of your project from the repository, and click **Save**.
 ##  Uploading Package Version
 
-To upload a ready-made ZIP-archive of the plugin to the [mef.dev technical preview](https://preview.mef.dev/rflnk/KKtKZAipNBYheGDPAt%2fU4BYdywdGkODMFYwcfR9O7vsIz%2f5iTq6R2UyD5fvKwbvJ), go to the plugin configuration page in the  *Backend* block and click the **Upload New Version** button.
+To upload a ready-made ZIP-archive of the plugin to the the MEF.DEV platform, go to the plugin configuration page in the  *Backend* block and click the **Upload New Version** button.
 
 |![Cторінкa створення Етап 9](https://mef.dev/Images/dev_guides/create_backend_plugin/9.png)|
 | :--: |
@@ -397,7 +397,7 @@ Select the necessary version and click **Save.**
 
 >  Alternatively, you can upload the plugin using the **publish** API method provided by the platform::
 ```ts
-curl --location 'https://preview.mef.dev/api/v2/plugins/<alias>/<PluginMefName>/publish' \
+curl --location 'https://<platform-host>/api/v2/plugins/<alias>/<PluginMefName>/publish' \
 --header 'Authorization: Basic userpass' \
 --form 'file=@"/local-path/to/file"' \
 --form 'updateVersion="true"' \
@@ -420,7 +420,7 @@ Important to note, that if you use the **publish** API method, you have to add t
 }
 ```
 
-There are several optional files for this way of publish to support the platfroms marketplace requirements (https://preview.mef.dev/store), namely:
+There are several optional files for this way of publish to support the platfroms marketplace requirements (the Store section), namely:
 - `description.html` human readable description of your plugin
 - `small.png` picture of your plugin within the dependency visualisation
 - `standard.png` square picture of your plugin within the platfroms marketplace
@@ -434,12 +434,12 @@ These files have to be added into project with the additional property **copy to
 
 To check the functionality of the plugin's API, you can use packet sniffer programs like *Postman*.
 
-For sending requests, you need to authenticate, typically using the token-based authentication in the platform. However, for testing, you can use *Basic Auth.* You can create the necessary login-password pair for Basic Auth access to the API in the [SETTINGS \ CREDENTIALS]( https://preview.mef.dev/console/settings/credentials) section of your profile, which can be accessed by clicking on the user icon in the upper right corner and selecting the *SETTINGS* menu. After clicking the *ADD* button, you can set the user login and password for Basic Auth.
+For sending requests, you need to authenticate, typically using the token-based authentication in the platform. However, for testing, you can use *Basic Auth.* You can create the necessary login-password pair for Basic Auth access to the API in the **SETTINGS \ CREDENTIALS** section of your profile, which can be accessed by clicking on the user icon in the upper right corner and selecting the *SETTINGS* menu. After clicking the *ADD* button, you can set the user login and password for Basic Auth.
 
 ## Basic Health Check
 Within the platform, there is an endpoint for checking the health of the plugin:
 ```ts
-https://preview.mef.dev/api/v2/<alias>/plugins/<PluginMefName>/version.json?detaillevel=detailed
+https://<platform-host>/api/v2/<alias>/plugins/<PluginMefName>/version.json?detaillevel=detailed
 ```
 
 |![detaillevel=detailed Етап 10](https://mef.dev/Images/dev_guides/create_backend_plugin/10.png)|
@@ -452,15 +452,15 @@ Sending requests to the plugin will be demonstrated using GET requests.
 
 To send requests, use the following template:
 ```
-https://preview.mef.dev/api/v2/<alias>/<Export Name>
+https://<platform-host>/api/v2/<alias>/<Export Name>
 ```
 You can add any parameters, headers, and fields to the request body, but make sure to reflect them in the input model of the plugin. Here's an example of a request:
 ```ts
-curl --location --request GET 'https://preview.mef.dev/api/v2/test/restresource/1' \
+curl --location --request GET 'https://<platform-host>/api/v2/test/restresource/1' \
 --header 'authorization: Basic userpass' \
 --header 'Content-Type: application/json'
 
-curl --location --request POST 'https://preview.mef.dev/api/v2/test/restresource/create-item' \
+curl --location --request POST 'https://<platform-host>/api/v2/test/restresource/create-item' \
 --header 'authorization: Basic userpass' \
 --header 'Content-Type: application/json' \
 --data '{
